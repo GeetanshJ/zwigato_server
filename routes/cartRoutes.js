@@ -1,3 +1,5 @@
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 const express = require("express");
 import { addToCart,getCart,removeFromCart } from "../controllers/cartController.js";
 import authMiddleWare from "../middleware/auth.js";

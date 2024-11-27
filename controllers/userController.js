@@ -1,3 +1,5 @@
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 import userModel from "../models/userModel.js";
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
