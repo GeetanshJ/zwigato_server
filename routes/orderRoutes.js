@@ -1,4 +1,4 @@
-import express from "express";
+const express = require("express");
 import authMiddleWare from "../middleware/auth.js";
 import { placeOrder } from "../controllers/orderController.js";
 

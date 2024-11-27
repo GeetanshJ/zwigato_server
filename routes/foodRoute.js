@@ -1,4 +1,4 @@
-import express from "express";
+const express = require("express");
 import { addFood, listFood,removeFood } from "../controllers/foodController.js";
 
 import multer from 'multer';

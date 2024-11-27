@@ -1,4 +1,4 @@
-import express from "express";
+const express = require("express");
 import { addToCart,getCart,removeFromCart } from "../controllers/cartController.js";
 import authMiddleWare from "../middleware/auth.js";
 
