@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken"
+const jwt = require("jsonwebtoken");
 
 const authMiddleWare = async (req,res,next) => {
     const {token} = req.headers;
