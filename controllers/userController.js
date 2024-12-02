@@ -25,11 +25,7 @@ const loginUser = async (req, res) => {
 
         const token = createToken(user._id);
 
-        if(token){
-            return res.json({ success: false, message: "Max limit reached" });
-        }
-
-        else {res.json({ success: true, token });}
+        res.json({ success: true, token });
 
     } catch (err) {
         console.log(err);
