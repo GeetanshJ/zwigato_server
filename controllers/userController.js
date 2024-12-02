@@ -12,7 +12,7 @@ const loginUser = async (req, res) => {
 
     try {
         if (isUserLoggedIn) {
-            return res.json({ success: false, message: "Only one user can be logged in at a time." });
+            return res.json({ success: false, message: "Already logged in somewhere." });
         }
 
         const user = await userModel.findOne({ email });
