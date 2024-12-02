@@ -5,16 +5,10 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
 
-let isUserLoggedIn = false;
-let logInCount = 0;
-
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        if (isUserLoggedIn && logInCount == 3) {
-            return res.json({ success: false, message: "Max limit reached" });
-        }
 
         const user = await userModel.findOne({ email });
 
@@ -28,12 +22,15 @@ const loginUser = async (req, res) => {
             return res.json({ success: false, message: "Invalid credentials" });
         }
 
-        isUserLoggedIn = true;
-        logInCount += 1;
 
         const token = createToken(user._id);
 
-        res.json({ success: true, token });
+        if(token){
+            token = null;
+            return res.json({ success: false, message: "Max limit reached" });
+        }
+
+        else {res.json({ success: true, token });}
 
     } catch (err) {
         console.log(err);
@@ -76,13 +73,6 @@ const registerUser = async (req, res) => {
     }
 };
 
-const logoutUser = (req, res) => {
-    if (!isUserLoggedIn) {
-        return res.json({ success: false, message: "No user is currently logged in." });
-    }
 
-    isUserLoggedIn = false;
-    res.json({ success: true, message: "Logged out successfully" });
-};
 
-export { loginUser, registerUser, logoutUser };
+export { loginUser, registerUser };
