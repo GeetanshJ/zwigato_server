@@ -6,13 +6,14 @@ const bcrypt = require("bcrypt");
 const validator = require("validator");
 
 let isUserLoggedIn = false;
+let logInCount = 0;
 
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        if (isUserLoggedIn) {
-            return res.json({ success: false, message: "Already logged in somewhere." });
+        if (isUserLoggedIn && logInCount == 3) {
+            return res.json({ success: false, message: "Max limit reached" });
         }
 
         const user = await userModel.findOne({ email });
@@ -28,6 +29,7 @@ const loginUser = async (req, res) => {
         }
 
         isUserLoggedIn = true;
+        logInCount += 1;
 
         const token = createToken(user._id);
 
