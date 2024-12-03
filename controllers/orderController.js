@@ -17,11 +17,20 @@ const placeOrder = async(req,res) =>{
 
     }
 
-    catch(Err) {
-        
+    catch(err) {
+        res.json({success:false,message:"error"});
+    }
+}
+const userOrders = async(req,res)=> {
+    try{
+        const orders = await orderModel.find({userId:req.body.userId});
+        res.json({success:true,data:orders});
     }
 
-
+    catch(err){
+        res.json({success:false,message:"error"});
+    }
 }
 
-export {placeOrder};
+
+export {placeOrder,userOrders};
