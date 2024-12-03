@@ -3,7 +3,7 @@ import orderSchema from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 import Stripe from "stripe";
 
-const stipe = new Stripe(process.env.STRIPE_sECRET_KEY)
+const stipe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 
 const placeOrder = async(req,res) =>{
@@ -43,7 +43,7 @@ const placeOrder = async(req,res) =>{
             quantity:1
         })
 
-        const session = await Stripe.Checkout.sessions.create({
+        const session = await stripe.checkout.sessions.create({
             line_items:line_items,
             mode:'payment',
             success_url:`${frontend_url}/verify?success=true&orderId=${newOrder._id}`,
@@ -54,7 +54,7 @@ const placeOrder = async(req,res) =>{
     }
 
     catch(err) {
-        res.json({success:false,message:"error"});
+        res.json({success:false,message:err});
     }
 }
 const userOrders = async(req,res)=> {
@@ -64,7 +64,7 @@ const userOrders = async(req,res)=> {
     }
 
     catch(err){
-        res.json({success:false,message:"error"});
+        res.json({success:false,message:err});
     }
 }
 
