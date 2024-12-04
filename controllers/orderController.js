@@ -80,5 +80,16 @@ const listOrders = async (req,res) => {
     }
 };
 
+const updateStatus = async (req,res) => {
+    try{
+        await orderModel.findByIdAndUpdate(req.body.orderId,{status:body.status});
+        res.json({success:true,message:"status updated"});
+    }
 
-export {placeOrder,userOrders,listOrders};
+    catch(err){
+        res.json({success:false,message:"status not updated"});
+    }
+}
+
+
+export {placeOrder,userOrders,listOrders,updateStatus};
